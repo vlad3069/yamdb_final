@@ -69,12 +69,12 @@ class UserCreateViewSet(APIView):
             user = User.objects.get(username=username, email=email)
             send_confirmation_code(email, user)
             return Response(status=status.HTTP_200_OK)
-        else:
-            serializer = UserCreateSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            user, _ = User.objects.get_or_create(**serializer.validated_data)
-            send_confirmation_code(email, user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        serializer = UserCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user, _ = User.objects.get_or_create(**serializer.validated_data)
+        send_confirmation_code(email, user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserReceiveTokenViewSet(mixins.CreateModelMixin,
