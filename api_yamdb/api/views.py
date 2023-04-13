@@ -7,14 +7,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import AccessToken
-
 from reviews.models import Category, Genre, Review, Title
 from users.models import User
-from .send import send_confirmation_code
-from .mixins import CreateListDestroyViewSet
+
 from .filters import TitleFilter
-from .permissions import (IsAdminModeratorAuthorOrReadOnly,
-                          IsAdminOrReadOnly, IsSuperUserOrIsAdminOnly)
+from .mixins import CreateListDestroyViewSet
+from .permissions import (IsAdminModeratorAuthorOrReadOnly, IsAdminOrReadOnly,
+                          IsSuperUserOrIsAdminOnly)
+from .send import send_confirmation_code
 from .serializers import (CategorySerializer, CommentSerializer,
                           GenreSerializer, ReviewSerializer, TitleSerializer,
                           TitleWriteSerializer, UserCreateSerializer,
