@@ -1,7 +1,6 @@
 # Проект API YaMDb с применением CI/CD
 
-https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml/badge.svg
-[![](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml/badge.svg)](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml)
+[![Django-app workflow](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml)
 
 ## Описание
 
@@ -44,12 +43,12 @@ Continuous Deployment (CD).
 
 #### Авторы
 
-[vlad9603]Владислав Подтяжкин (teamlead) - управление пользователями (Auth и
+Владислав Подтяжкин (teamlead) - управление пользователями (Auth и
 Users): система регистрации и аутентификации, права доступа, работа с токеном,
 система подтверждения e-mail, поля;
 
-[urusaga]Галина Букреева - [https://github.com/urusaga](https://github.com/urusaga) - отзывы (Review) и комментарии (Comments):
+Галина Букреева - [https://github.com/urusaga](https://github.com/urusaga) - отзывы (Review) и комментарии (Comments):
 модели и view, эндпойнты, права доступа для запросов. Рейтинги произведений.
 
-[Serg-Lugovski]Сергей Луговский - [https://github.com/Serg-Lugovski](https://github.com/Serg-Lugovski)- категории (Categories), жанры (Genres)
+Сергей Луговский - [https://github.com/Serg-Lugovski](https://github.com/Serg-Lugovski) - категории (Categories), жанры (Genres)
 и произведения (Titles): модели, view и эндпойнты для них;
