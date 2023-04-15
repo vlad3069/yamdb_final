@@ -16,7 +16,7 @@ jobs:
     - name: Install dependencies
       run: | 
         python -m pip install --upgrade pip
-        pip install requirements_testing.txt
+        pip install -r requirements_testing.txt
         pip install -r api_yamdb/requirements.txt 
 
     - name: Test with flake8 and django tests
