@@ -141,18 +141,19 @@ sudo docker-compose --version
 mkdir -p nginx/templates/
 ```
 * Скопировать файлы ```docker-compose.yaml``` и
-```nginx/templates/default.conf.template``` из проекта (локально) на сервер в
+```nginx/templates/default.conf``` из проекта (локально) на сервер в
 ```home/<username>/docker-compose.yaml``` и
-```home/<username>/nginx/templates/default.conf.template``` соответственно:
+```home/<username>/nginx/templates/default.conf``` соответственно:
   * перейти в директорию с файлом ```docker-compose.yaml``` и выполните:
   ```
   scp docker-compose.yaml <username>@<ip_address>:/home/<username>/docker-compose.yaml
   ```
-  * перейти в директорию с файлом ```default.conf.template``` и выполните:
+  * перейти в директорию с файлом ```default.conf``` и выполните:
   ```
-  scp default.conf.template <username>@<ip_address>:/home/<username>/nginx/templates/default.conf.template
+  scp default.conf <username>@<ip_address>:/home/<username>/nginx/templates/default.conf
   ```
 ## После успешного деплоя
+
 * Создать суперпользователя:
 ```
 sudo docker-compose exec web python manage.py makemigrations
