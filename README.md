@@ -1,7 +1,6 @@
 # Проект API YaMDb с применением CI/CD
 
-https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml/badge.svg
-[![](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml/badge.svg)](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yaml)
+[![API YaMDb Project CI/CD](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml)
 
 ## Описание
 
@@ -27,7 +26,6 @@ Continuous Deployment (CD).
 - Возможность получения подробной информации о себе и удаления своего аккаунта.
 - Фильтрация по полям.
 
-#### Документация к API доступна по адресу [http://127.0.0.1:80/redoc/](http://127.0.0.1:80/redoc/) после запуска сервера с проектом
 
 #### Технологии
 
@@ -42,14 +40,128 @@ Continuous Deployment (CD).
 - Docker-compose 3.8
 
 
-#### Авторы
+#### Участники проекта
 
-[vlad9603]Владислав Подтяжкин (teamlead) - управление пользователями (Auth и
-Users): система регистрации и аутентификации, права доступа, работа с токеном,
-система подтверждения e-mail, поля;
+[vlad9603]Владислав Подтяжкин (teamlead) - управление пользователями (Auth и Users): система регистрации и аутентификации, права доступа, работа с токеном, система подтверждения e-mail, поля;
 
-[urusaga]Галина Букреева - [https://github.com/urusaga](https://github.com/urusaga) - отзывы (Review) и комментарии (Comments):
-модели и view, эндпойнты, права доступа для запросов. Рейтинги произведений.
+[urusaga]Галина Букреева - [https://github.com/urusaga](https://github.com/urusaga) - отзывы (Review) и комментарии (Comments): модели и view, эндпойнты, права доступа для запросов. Рейтинги произведений;
 
-[Serg-Lugovski]Сергей Луговский - [https://github.com/Serg-Lugovski](https://github.com/Serg-Lugovski)- категории (Categories), жанры (Genres)
-и произведения (Titles): модели, view и эндпойнты для них;
+[Serg-Lugovski]Сергей Луговский - [https://github.com/Serg-Lugovski](https://github.com/Serg-Lugovski)- категории (Categories), жанры (Genres) и произведения (Titles): модели, view и эндпойнты для них;
+
+
+## Начало работы
+
+* Клонировать репозиторий, перейти в директорию с проектом:
+
+git clone git@github.com:vlad3069/yamdb_final.git
+
+cd api_yamdb
+
+
+* Установить виртуальное окружение, активировать его:
+
+python -m venv venv
+
+. venv/scripts/activate
+
+
+* Перейти в директорию с приложением ```api_yamdb```, установить зависимости:
+
+pip install -r requirements.txt
+
+
+* Для подключения GitHub Actions в ```api_yamdb```, необходимо создать директорию 
+```.github/workflows``` и скопировать в неё файл ```yamdb_workflow.yml``` из
+директории проекта.
+* Для прохождения тестов, в директории ```infra```, создать файл ```.env``` с
+переменными окружения:
+```
+
+ENGINE=django.db.backends.postgresql
+DB_NAME                        # имя БД - postgres (по умолчанию)
+POSTGRES_USER                  # логин для подключения к БД - postgres (по умолчанию)
+POSTGRES_PASSWORD              # пароль для подключения к БД (установите свой)
+DB_HOST=db                     # название сервиса (контейнера)
+DB_PORT=5432                   # порт для подключения к БД
+
+```
+* В директории проекта ```api_yamdb```, запустить ```pytest```:
+```
+pytest
+```
+
+## Workflow
+
+Для использования Continuous Integration (CI) и Continuous Deployment (CD): в
+репозитории GitHub Actions ```Settings/Secrets/Actions``` прописать Secrets -
+переменные окружения для доступа к сервисам:
+```
+
+DOCKER_USERNAME                # имя пользователя в DockerHub
+DOCKER_PASSWORD                # пароль пользователя в DockerHub
+HOST                           # ip_address сервера
+USER                           # имя пользователя
+SSH_KEY                        # приватный ssh-ключ (cat ~/.ssh/id_rsa)
+PASSPHRASE                     # кодовая фраза (пароль) для ssh-ключа
+
+TELEGRAM_TO                    # id телеграм-аккаунта (можно узнать у @userinfobot, команда /start)
+TELEGRAM_TOKEN                 # токен бота (получить токен можно у @BotFather, /token, имя бота)
+```
+При push в ветку main автоматически отрабатывают сценарии:
+* *tests* - проверка кода на соответствие стандарту PEP8 и запуск pytest.
+Дальнейшие шаги выполняются только если push был в ветку main;
+* *build_and_push_to_docker_hub* - сборка и доставка докер-образов на DockerHub
+* *deploy* - автоматический деплой проекта на боевой сервер. Выполняется
+копирование файлов из DockerHub на сервер;
+* *send_message* - отправка уведомления в Telegram.
+## Подготовка удалённого сервера
+* Войти на удалённый сервер, для этого необходимо знать адрес сервера, имя
+пользователя и пароль. Адрес сервера указывается по IP-адресу или по доменному
+имени:
+```
+ssh <username>@<ip_address>
+```
+* Остановить службу ```nginx```:
+```
+sudo systemctl stop nginx
+```
+* Установить Docker и Docker-compose:
+```
+sudo apt update
+sudo apt upgrade -y
+sudo apt install docker.io
+sudo apt install docker-compose -y
+```
+* Проверить корректность установки Docker-compose:
+```
+sudo docker-compose --version
+```
+* На сервере создать директорию ```nginx/templates/``` :
+```
+mkdir -p nginx/templates/
+```
+* Скопировать файлы ```docker-compose.yaml``` и
+```nginx/templates/default.conf.template``` из проекта (локально) на сервер в
+```home/<username>/docker-compose.yaml``` и
+```home/<username>/nginx/templates/default.conf.template``` соответственно:
+  * перейти в директорию с файлом ```docker-compose.yaml``` и выполните:
+  ```
+  scp docker-compose.yaml <username>@<ip_address>:/home/<username>/docker-compose.yaml
+  ```
+  * перейти в директорию с файлом ```default.conf.template``` и выполните:
+  ```
+  scp default.conf.template <username>@<ip_address>:/home/<username>/nginx/templates/default.conf.template
+  ```
+## После успешного деплоя
+* Создать суперпользователя:
+```
+docker-compose exec web python manage.py createsuperuser
+```
+* Для проверки работоспособности приложения, перейти на страницу:
+```
+http:/<ip_address>/admin/
+```
+## Документация для YaMDb доступна по адресу:
+```
+http:/<ip_address>/redoc/
+```
