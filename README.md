@@ -155,7 +155,11 @@ mkdir -p nginx/templates/
 ## После успешного деплоя
 * Создать суперпользователя:
 ```
-docker-compose exec web python manage.py createsuperuser
+sudo docker-compose exec web python manage.py makemigrations
+
+sudo docker-compose exec web python manage.py migrate
+
+sudo docker-compose exec web python manage.py createsuperuser
 ```
 * Для проверки работоспособности приложения, перейти на страницу:
 ```
