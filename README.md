@@ -138,7 +138,7 @@ sudo docker-compose --version
 ```
 * На сервере создать директорию ```nginx/templates/``` :
 ```
-mkdir -p nginx/templates/
+mkdir -p nginx/
 ```
 * Скопировать файлы ```docker-compose.yaml``` и
 ```nginx/templates/default.conf``` из проекта (локально) на сервер в
@@ -150,7 +150,7 @@ mkdir -p nginx/templates/
   ```
   * перейти в директорию с файлом ```default.conf``` и выполните:
   ```
-  scp default.conf <username>@<ip_address>:/home/<username>/nginx/templates/default.conf
+  scp default.conf <username>@<ip_address>:/home/<username>/nginx/default.conf
   ```
 ## После успешного деплоя
 
@@ -164,9 +164,9 @@ sudo docker-compose exec web python manage.py createsuperuser
 ```
 * Для проверки работоспособности приложения, перейти на страницу:
 ```
-http:/158.160.20.27/admin/
+http:/158.160.56.88/admin/
 ```
 ## Документация для YaMDb доступна по адресу:
 ```
-http:/158.160.20.27/redoc/
+http:/158.160.56.88/redoc/
 ```
