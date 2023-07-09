@@ -1,4 +1,4 @@
-# Проект API YaMDb с применением CI/CD
+#  API YaMDb с применением CI/CD
 
 [![API YaMDb Project CI/CD](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/vlad3069/yamdb_final/actions/workflows/yamdb_workflow.yml)
 
@@ -55,8 +55,6 @@ Continuous Deployment (CD).
 
 git clone git@github.com:vlad3069/yamdb_final.git
 
-cd api_yamdb
-
 
 * Установить виртуальное окружение, активировать его:
 
@@ -66,6 +64,8 @@ python -m venv venv
 
 
 * Перейти в директорию с приложением ```api_yamdb```, установить зависимости:
+
+cd api_yamdb
 
 pip install -r requirements.txt
 
